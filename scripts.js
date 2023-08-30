@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <td><a href="${linkp}" target="_blank">Link paper</a></td>
                     <td>${year}</td>
                     <td>${source}</td>
-                    td><a href="${linkm}" target="_blank">Link meeting</a></td>
+                    <td><a href="${linkm}" target="_blank">Link meeting</a></td>
                 </tr>
             `;
         });
