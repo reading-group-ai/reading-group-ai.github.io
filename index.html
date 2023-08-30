@@ -3,21 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Reading Group</title>
+    <title>Reading Group</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>MultiModel-LLM Reading Group</h1>
-        <p>We gather every week to to engage in discussions centered around papers concerning the intersection of two or more fields, including Large Language Models (LLMs), multimodality, LLM-based embodied Artificial Intelligence (AI), computer vision, and related topics.</p>
+        <h1>MultiModalLLM Club</h1>
+        <p>We gather every week to discuss the intricacies of Large Language Models and their multimodal applications.</p>
     </header>
-    <section class="members">
-        <h2>Members</h2>
-        <!-- You can add members manually or use JS to fetch them from another CSV -->
-    </section>
-    <section class="papers">
-        <!-- Papers will be populated from the CSV by our script -->
-    </section>
+
+    <main>
+        <table id="papersTable">
+            <thead>
+                <tr>
+                    <th>Presenter Name</th>
+                    <th>Paper Title</th>
+                    <th>Link</th>
+                    <th>Year</th>
+                    <th>Source</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </main>
+
+    <footer>
+        <p>Reading Group AI © 2023</p>
+    </footer>
+
     <script src="scripts.js"></script>
 </body>
 </html>

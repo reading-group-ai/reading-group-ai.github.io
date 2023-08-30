@@ -1,44 +1,26 @@
-function csvToJSON(csv) {
-    const lines = csv.split("\n");
-    const headers = lines[0].split(",");
-    const result = [];
-  
-    for (let i = 1; i < lines.length; i++) {
-        const obj = {};
-        const row = lines[i].split(",");
-        for (let j = 0; j < headers.length; j++) {
-            obj[headers[j].trim()] = row[j].trim();
-        }
-        result.push(obj);
-    }
-    return result;
-}
-
-fetch('papers.csv')
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('papers.csv')
     .then(response => response.text())
     .then(data => {
-        const papers = csvToJSON(data);
-        displayPapers(papers);
+        const rows = data.split('\n').slice(1); // skip the header row
+        let htmlContent = '';
+
+        rows.forEach(row => {
+            const [presenter, title, link, year, source] = row.split(',');
+            htmlContent += `
+                <tr>
+                    <td>${presenter}</td>
+                    <td>${title}</td>
+                    <td><a href="${link}" target="_blank">Link</a></td>
+                    <td>${year}</td>
+                    <td>${source}</td>
+                </tr>
+            `;
+        });
+
+        document.querySelector('#papersTable tbody').innerHTML = htmlContent;
+    })
+    .catch(error => {
+        console.error('Error fetching the CSV file:', error);
     });
-
-function displayPapers(papers) {
-    const papersSection = document.querySelector('.papers');
-    papers.forEach(paper => {
-        const paperDiv = document.createElement('div');
-        paperDiv.classList.add('paper');
-    
-        const title = document.createElement('h2');
-        title.innerHTML = `<a href="${paper.Link}" target="_blank">${paper.Title}</a> (${paper.Year}, ${paper.Source})`;
-        paperDiv.appendChild(title);
-
-        const presenter = document.createElement('p');
-        presenter.textContent = `Presenter: ${paper.Presenter}`;
-        paperDiv.appendChild(presenter);
-
-        const date = document.createElement('p');
-        date.textContent = `Date: ${paper.Date}`;
-        paperDiv.appendChild(date);
-
-        papersSection.appendChild(paperDiv);
-    });
-}
+});
