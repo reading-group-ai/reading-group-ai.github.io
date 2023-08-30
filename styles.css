@@ -1,38 +1,35 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
     max-width: 800px;
-    margin: 50px auto;
-    background-color: #fff;
+    margin: 0 auto;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-    color: #333;
+header {
+    background-color: #f7f7f7;
+    padding: 20px;
     text-align: center;
+    border-radius: 5px;
+    margin-bottom: 20px;
 }
 
-#papers-list {
-    margin-top: 30px;
+.members, .papers {
+    margin-bottom: 20px;
 }
 
 .paper {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px 0;
+    background-color: #e9ecef;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
 }
 
-.paper-title {
-    font-weight: bold;
+.paper h2 {
+    font-size: 1.3rem;
+    margin-top: 0;
 }
 
-.paper-link {
-    display: block;
-    margin-top: 10px;
+.paper a {
+    text-decoration: none;
+    color: #007bff;
 }

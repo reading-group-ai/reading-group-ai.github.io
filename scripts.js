@@ -1,36 +1,44 @@
-document.addEventListener("DOMContentLoaded", function() {
-    fetch('papers.csv')
-        .then(response => response.text())
-        .then(data => {
-            const papers = csvToJSON(data);
-            displayPapers(papers);
-        });
-});
-
 function csvToJSON(csv) {
-    const [header, ...rows] = csv.trim().split("\n");
-    const keys = header.split(",");
-    return rows.map(row => {
-        const values = row.split(",");
-        return keys.reduce((acc, key, i) => {
-            acc[key.trim()] = values[i].trim();
-            return acc;
-        }, {});
-    });
+    const lines = csv.split("\n");
+    const headers = lines[0].split(",");
+    const result = [];
+  
+    for (let i = 1; i < lines.length; i++) {
+        const obj = {};
+        const row = lines[i].split(",");
+        for (let j = 0; j < headers.length; j++) {
+            obj[headers[j].trim()] = row[j].trim();
+        }
+        result.push(obj);
+    }
+    return result;
 }
 
+fetch('papers.csv')
+    .then(response => response.text())
+    .then(data => {
+        const papers = csvToJSON(data);
+        displayPapers(papers);
+    });
+
 function displayPapers(papers) {
-    const container = document.getElementById('papers-list');
+    const papersSection = document.querySelector('.papers');
     papers.forEach(paper => {
-        const div = document.createElement('div');
-        div.className = 'paper';
-        div.innerHTML = `
-            <div class="paper-title">${paper["Paper Title"]}</div>
-            <div>Presenter: ${paper["Presenter Name"]}</div>
-            <a href="${paper.Link}" class="paper-link" target="_blank">Read the paper</a>
-            <div>Year: ${paper.Year}</div>
-            <div>Source: ${paper.Source}</div>
-        `;
-        container.appendChild(div);
+        const paperDiv = document.createElement('div');
+        paperDiv.classList.add('paper');
+    
+        const title = document.createElement('h2');
+        title.innerHTML = `<a href="${paper.Link}" target="_blank">${paper.Title}</a> (${paper.Year}, ${paper.Source})`;
+        paperDiv.appendChild(title);
+
+        const presenter = document.createElement('p');
+        presenter.textContent = `Presenter: ${paper.Presenter}`;
+        paperDiv.appendChild(presenter);
+
+        const date = document.createElement('p');
+        date.textContent = `Date: ${paper.Date}`;
+        paperDiv.appendChild(date);
+
+        papersSection.appendChild(paperDiv);
     });
 }
